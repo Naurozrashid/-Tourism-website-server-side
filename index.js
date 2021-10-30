@@ -7,11 +7,13 @@ const port = process.env.Port || 5000;
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.sztg1.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
 
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+console.log(uri)
 
 
 async function run() {
     try {
         await client.connect();
+        console.log("dta")
         const database = client.db('Vacadaydb');
         const servicesCollection = database.collection('services');
 
