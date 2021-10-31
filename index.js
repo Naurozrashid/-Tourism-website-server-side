@@ -49,6 +49,13 @@ async function run() {
             console.log(result);
             res.json(result)
         });
+         
+        //get api order
+        app.get('/orders', async (req, res) => {
+                  const cursor = ordersCollection.find({});
+                  const result = await cursor.toArray();
+                  res.send(result)
+            })
 
         // post api order
          app.post('/orders', async (req, res) => {
@@ -59,6 +66,24 @@ async function run() {
             console.log(result);
             res.json(result)
         });
+
+        //delete api order
+        app.delete('/orders/:id', async (req, res) => {
+                  const id = req.params.id;
+                  const query = { _id: ObjectId(id) };
+                  const result = await ordersCollection.deleteOne(query);
+                  console.log("deleting user with id", result);
+                  res.json(result)
+            })
+              // update api
+    app.get('/orders/:id',async(req,res)=>{
+        const id= req.params.id;
+        const query ={_id:ObjectId(id)};
+        const newQuery={$set:{status:'approved'}}
+        const result = await ordersCollection.updateOne(query, newQuery);
+        console.log('load user with id :',id)
+        res.json(result)
+    })
 
        
 
