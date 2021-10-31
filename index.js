@@ -22,6 +22,7 @@ async function run() {
         console.log("dta")
         const database = client.db('Vacadaydb');
         const servicesCollection = database.collection('services');
+        const ordersCollection = database.collection('orders');
 
         // GET API
         app.get('/services', async (req, res) => {
@@ -45,6 +46,16 @@ async function run() {
             console.log('hit the post api', service);
 
             const result = await servicesCollection.insertOne(service);
+            console.log(result);
+            res.json(result)
+        });
+
+        // post api order
+         app.post('/orders', async (req, res) => {
+            const order = req.body;
+            console.log('hit the post api', order);
+
+            const result = await ordersCollection.insertOne(order);
             console.log(result);
             res.json(result)
         });
