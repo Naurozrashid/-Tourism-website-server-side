@@ -39,6 +39,15 @@ async function run() {
             const service = await servicesCollection.findOne(query);
             res.json(service);
         })
+         // POST API
+        app.post('/services', async (req, res) => {
+            const service = req.body;
+            console.log('hit the post api', service);
+
+            const result = await servicesCollection.insertOne(service);
+            console.log(result);
+            res.json(result)
+        });
 
        
 
